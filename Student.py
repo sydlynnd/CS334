@@ -12,7 +12,7 @@ print("Connecting...")
 #Creating a TCP
 s1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-s1.connect(localhost,listenPort)
+s1.connect((localhost,listenPort))
 print("Now connected to Robot")
 
 BlazerID = input("Enter your BlazerID")
@@ -23,23 +23,23 @@ tcp = s1.recv(1024)
 print("Creating new socket s2")
 s2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s2.accept(tcp)
-print("TCP port <tcp> accepted" %tcp)
+print("TCP port %d accepted" %tcp)
 
 
 data = s2.recv(1024)
 ddata = data.decode()
-print("UDP ports <ddata> received!!" %ddata)
+print("UDP ports %s received!!" %ddata)
 portnum = ddata.split(",")
 udp_rob_port = int(portnum[0])
 udp_stud_port = int(portnum[1])
 
 s3 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-num = random.randint(6,9)
-s3.sendto(num.encode(),(localhost,udp_rob_port))
+num = random.randint(1,4)
+s3.sendto(str(num).encode(),(localhost,udp_rob_port))
 print("Sending %d using port %d" % (num,udp_rob_port))
 
 receiveddata, addr = s3.recvfrom(1024)
-recieveddata = data.decode()
+recieveddata = recieveddata.decode()
 print("Received %d from port %d" %(receiveddata,udp_stud_port))
 
 print("\nSending UDP packets: ")
