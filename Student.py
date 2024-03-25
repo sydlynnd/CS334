@@ -34,7 +34,7 @@ udp_rob_port = int(portnum[0])
 udp_stud_port = int(portnum[1])
 
 s3 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-num = random.randint(1,4)
+num = random.randint(6,9)
 s3.sendto(str(num).encode(),(localhost,udp_rob_port))
 print("Sending %d using port %d" % (num,udp_rob_port))
 
